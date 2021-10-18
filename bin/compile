@@ -20,7 +20,8 @@ if [ -f ${build_dir}/.preferred_otp_version ]; then
 fi
 
 ver=${OTP_VERSION:=${DEFAULT_OTP_VERSION}}
-tarball=OTP-${ver}.tar.gz
+#tarball=OTP-${ver}.tar.gz
+tarball=heroku-18.tar.gz
 #OTP_TARBALL_URL="https://s3.amazonaws.com/heroku-buildpack-elixir/erlang/cedar-14/${tarball}"
 OTP_TARBALL_URL="https://github.com/elixir-buildpack/heroku-otp/releases/${ver}/heroku-18.tar.gz"
 
@@ -48,12 +49,12 @@ echo "-----> Using Erlang/OTP $ver"
     cd ${cache_dir}
 
     echo "-------> Fetching Erlang/OTP $ver from ${OTP_TARBALL_URL}"
-    curl -sO ${OTP_TARBALL_URL} || exit 1
+    wget -q -O ${tarball} ${OTP_TARBALL_URL} || exit 1
 )
 
 echo "-------> Unpacking Erlang/OTP ${cache_dir}/${tarball}"
 mkdir -p ${ERLROOT}
-tar zxf ${cache_dir}/${tarball} -C ${ERLROOT} --strip-components=1
+tar -zxf ${cache_dir}/${tarball} -C ${ERLROOT} --strip-components=1
 
 echo "-------> Installing Erlang/OTP $ver"
 ln -s ${ERLROOT} /app/otp
