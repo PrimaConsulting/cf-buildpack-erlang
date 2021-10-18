@@ -13,7 +13,7 @@ test -z ${build_dir} && exit
 cache_dir=$(cd "$2/" && pwd)
 test -z ${cache_dir} && exit
 
-DEFAULT_OTP_VERSION="20.1"
+DEFAULT_OTP_VERSION="24.0"
 
 if [ -f ${build_dir}/.preferred_otp_version ]; then
   OTP_VERSION=$(cat ${build_dir}/.preferred_otp_version)
@@ -21,7 +21,8 @@ fi
 
 ver=${OTP_VERSION:=${DEFAULT_OTP_VERSION}}
 tarball=OTP-${ver}.tar.gz
-OTP_TARBALL_URL="https://s3.amazonaws.com/heroku-buildpack-elixir/erlang/cedar-14/${tarball}"
+#OTP_TARBALL_URL="https://s3.amazonaws.com/heroku-buildpack-elixir/erlang/cedar-14/${tarball}"
+OTP_TARBALL_URL="https://github.com/elixir-buildpack/heroku-otp/releases/${ver}/heroku-18.tar.gz"
 
 ERLROOT=${build_dir}/otp
 PROFILE=${build_dir}/.profile.d
